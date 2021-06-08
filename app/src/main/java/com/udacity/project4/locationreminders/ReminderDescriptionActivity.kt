@@ -19,6 +19,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.udacity.project4.R
 import com.udacity.project4.databinding.ActivityReminderDescriptionBinding
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 
 /**
  * Activity that displays the reminder details after the user clicks on the notification
@@ -70,6 +73,7 @@ class ReminderDescriptionActivity : AppCompatActivity() {
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                     )
                 }
+
             }
         }
     }
@@ -127,5 +131,12 @@ class ReminderDescriptionActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mapView?.onSaveInstanceState(outState)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val remindersIntent = Intent(this, RemindersActivity::class.java)
+        startActivity(remindersIntent)
+        finish()
     }
 }

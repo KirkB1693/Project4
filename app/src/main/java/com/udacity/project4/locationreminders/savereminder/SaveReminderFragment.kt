@@ -92,7 +92,7 @@ class SaveReminderFragment : BaseFragment() {
             val longitude = _viewModel.longitude.value
 
             reminderDataItem = ReminderDataItem(title, description, location, latitude, longitude)
-            if (_viewModel.validateAndSaveReminder(reminderDataItem)) {
+            if (_viewModel.validateEnteredData(reminderDataItem)) {
                 checkPermissionsAndStartGeofencing()
             }
         }
@@ -255,6 +255,7 @@ class SaveReminderFragment : BaseFragment() {
                 addOnSuccessListener {
                     Log.i("Add Geofence", geofence.requestId)
                     _viewModel.showToast.value = "Geofence for ${reminderDataItem.title} Added"
+                    _viewModel.validateAndSaveReminder(reminderDataItem)
                 }
                 addOnFailureListener {
                     if ((it.message != null)) {

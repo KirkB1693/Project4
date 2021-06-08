@@ -62,7 +62,9 @@
             android:layout_width="@dimen/map_height_width"
             android:layout_height="@dimen/map_height_width"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_normal" />
+            android:layout_margin="@dimen/margin_normal"
+            android:background="@color/colorPrimaryDark"
+            android:padding="@dimen/padding_normal" />
 
     </LinearLayout>
 </layout>
