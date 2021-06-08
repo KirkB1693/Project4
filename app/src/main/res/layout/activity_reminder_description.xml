@@ -16,18 +16,53 @@
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".locationreminders.ReminderDescriptionActivity">
-        <!--TODO: add the design of the reminder details-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Reminder Details"
+            android:text="@string/reminder_details_screen_title"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/reminder_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"
+            tools:text="Reminder Title" />
+
+        <TextView
+            android:id="@+id/reminder_details_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_small"
+            tools:text="Reminder Description" />
+
+        <TextView
+            android:id="@+id/reminder_details_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_normal"
+            android:textStyle="bold"
+            tools:text="Reminder Location"/>
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/reminder_details_map"
+            android:layout_width="@dimen/map_height_width"
+            android:layout_height="@dimen/map_height_width"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_normal" />
 
     </LinearLayout>
 </layout>
