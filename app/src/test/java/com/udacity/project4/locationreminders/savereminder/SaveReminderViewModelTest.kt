@@ -9,27 +9,21 @@ import com.udacity.project4.R
 import com.udacity.project4.locationreminders.MainCoroutineRule
 import com.udacity.project4.locationreminders.data.FakeDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
-import com.udacity.project4.locationreminders.data.dto.Result
 import com.udacity.project4.locationreminders.data.dto.Result.Error
 import com.udacity.project4.locationreminders.data.dto.Result.Success
 import com.udacity.project4.locationreminders.getOrAwaitValue
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
-
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.GlobalContext
-import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.robolectric.RuntimeEnvironment.application
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)

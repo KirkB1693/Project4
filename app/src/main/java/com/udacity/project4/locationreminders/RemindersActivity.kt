@@ -8,11 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.map
 import androidx.navigation.fragment.NavHostFragment
-import com.firebase.ui.auth.AuthUI
 import com.udacity.project4.R
 import com.udacity.project4.authentication.AuthenticationActivity
 import com.udacity.project4.authentication.FirebaseUserLiveData
-import com.udacity.project4.databinding.ActivityAuthenticationBinding
 import kotlinx.android.synthetic.main.activity_reminders.*
 
 /**

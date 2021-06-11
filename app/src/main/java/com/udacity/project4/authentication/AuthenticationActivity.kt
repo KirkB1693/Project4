@@ -4,18 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.map
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthMethodPickerLayout
-import com.udacity.project4.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.udacity.project4.R
 import com.udacity.project4.databinding.ActivityAuthenticationBinding
 import com.udacity.project4.locationreminders.RemindersActivity
 

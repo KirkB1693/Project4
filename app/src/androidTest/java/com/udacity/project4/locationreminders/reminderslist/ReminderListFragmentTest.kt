@@ -1,6 +1,5 @@
 package com.udacity.project4.locationreminders.reminderslist
 
-import android.content.Context
 import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
@@ -21,11 +20,8 @@ import com.udacity.project4.locationreminders.data.dto.succeeded
 import com.udacity.project4.locationreminders.data.local.FakeAndroidTestRepository
 import com.udacity.project4.testModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
-import org.hamcrest.Matchers.`is`
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
