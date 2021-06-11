@@ -84,9 +84,9 @@ class RemindersListViewModelTest {
     }
 
     @Test
-    fun loadReminders_nullList_errorReturnedAndSnackbarShown() = runBlockingTest {
-        // Given a null data source
-        dataSource = FakeDataSource(null)
+    fun loadReminders_setErrorToBeReturned_errorReturnedAndSnackbarShown() = runBlockingTest {
+        // Given a data source that will return an error
+        dataSource.setShouldReturnError(true)
         remindersListViewModel = RemindersListViewModel(ApplicationProvider.getApplicationContext(), dataSource)
         // when loading the reminders
         remindersListViewModel.loadReminders()

@@ -21,6 +21,7 @@ import com.udacity.project4.locationreminders.data.local.RemindersLocalRepositor
 import com.udacity.project4.locationreminders.reminderslist.RemindersListViewModel
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.util.DataBindingIdlingResource
+import com.udacity.project4.util.isToast
 import com.udacity.project4.util.monitorActivity
 import com.udacity.project4.utils.EspressoIdlingResource
 import kotlinx.coroutines.runBlocking
@@ -166,6 +167,10 @@ class RemindersActivityTest :
             onView(withText(remindersList[0].location)).check(matches(isDisplayed()))
         }
 
+        Thread.sleep(2000)
+        onView(withText("Geofence for TITLE1 Added")).inRoot(isToast()).check(matches(isDisplayed()))
+        Thread.sleep(3000)
+        onView(withText(R.string.reminder_saved)).inRoot(isToast()).check(matches(isDisplayed()))
 
         // Make sure the activity is closed
         activityScenario.close()
