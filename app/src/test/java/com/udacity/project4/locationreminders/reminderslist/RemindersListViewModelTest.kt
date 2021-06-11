@@ -1,6 +1,5 @@
 package com.udacity.project4.locationreminders.reminderslist
 
-import android.provider.CalendarContract
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -10,9 +9,8 @@ import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.core.Is.`is`
-import org.junit.Assert
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -95,5 +93,25 @@ class RemindersListViewModelTest {
         // then error should be returned and snackbar shown with not found message
         val error = remindersListViewModel.showSnackBar.getOrAwaitValue()
         assert(error.contains("Reminders not found"))
+    }
+
+    @Test
+    fun loadReminders_checkLoading() = runBlockingTest {
+        // Pause dispatcher so you can verify initial values.
+        mainCoroutineRule.pauseDispatcher()
+        // when loading the reminders
+        remindersListViewModel.loadReminders()
+        // Then assert that the progress indicator is shown.
+        MatcherAssert.assertThat(
+            remindersListViewModel.showLoading.getOrAwaitValue(),
+            Matchers.`is`(true)
+        )
+        // Execute pending coroutines actions.
+        mainCoroutineRule.resumeDispatcher()
+        // Then assert that the progress indicator is hidden.
+        MatcherAssert.assertThat(
+            remindersListViewModel.showLoading.getOrAwaitValue(),
+            Matchers.`is`(false)
+        )
     }
 }

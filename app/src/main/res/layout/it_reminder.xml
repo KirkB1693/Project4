@@ -18,6 +18,7 @@
         android:fadeVisible="@{true}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/reminder_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_medium">

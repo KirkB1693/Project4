@@ -10,11 +10,15 @@ import com.udacity.project4.locationreminders.MainCoroutineRule
 import com.udacity.project4.locationreminders.data.FakeDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
+import com.udacity.project4.locationreminders.data.dto.Result.Error
+import com.udacity.project4.locationreminders.data.dto.Result.Success
 import com.udacity.project4.locationreminders.getOrAwaitValue
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -83,7 +87,7 @@ class SaveReminderViewModelTest {
         // then reminder should now be part of data and the saved toast should show
         val result = saveReminderViewModel.dataSource.getReminder(reminderToAdd.id)
         val data: ReminderDTO? = when (result) {
-            is Result.Success<*> -> {
+            is Success<*> -> {
                 result.data as ReminderDTO
             }
             else -> null
@@ -116,7 +120,7 @@ class SaveReminderViewModelTest {
         // then reminder should not be part of data and the snackbar should show to prompt user for valid input
         val result = saveReminderViewModel.dataSource.getReminder(reminderToAdd.id)
         val error: Boolean = when (result) {
-            is Result.Error -> {
+            is Error -> {
                 true
             }
             else -> false
@@ -142,7 +146,7 @@ class SaveReminderViewModelTest {
         // then reminder should not be part of data and the snackbar should show to prompt user for valid input
         val result = saveReminderViewModel.dataSource.getReminder(reminderToAdd.id)
         val error: Boolean = when (result) {
-            is Result.Error -> {
+            is Error -> {
                 true
             }
             else -> false
@@ -172,5 +176,32 @@ class SaveReminderViewModelTest {
         assertEquals(null, saveReminderViewModel.reminderSelectedLocationStr.value)
         assertEquals(null, saveReminderViewModel.latitude.value)
         assertEquals(null, saveReminderViewModel.longitude.value)
+    }
+
+    @Test
+    fun saveReminder_checkLoading() = runBlockingTest {
+        val reminderToAdd = ReminderDataItem(
+            "Golfing",
+            "Hit a dozen practice balls on the driving range",
+            "Shoreline Golf Links",
+            37.4306,
+            -122.0855
+        )
+        // Pause dispatcher so you can verify initial values.
+        mainCoroutineRule.pauseDispatcher()
+        // when loading the reminders
+        saveReminderViewModel.saveReminder(reminderToAdd)
+        // Then assert that the progress indicator is shown.
+        MatcherAssert.assertThat(
+            saveReminderViewModel.showLoading.getOrAwaitValue(),
+            Matchers.`is`(true)
+        )
+        // Execute pending coroutines actions.
+        mainCoroutineRule.resumeDispatcher()
+        // Then assert that the progress indicator is hidden.
+        MatcherAssert.assertThat(
+            saveReminderViewModel.showLoading.getOrAwaitValue(),
+            Matchers.`is`(false)
+        )
     }
 }
