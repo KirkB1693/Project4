@@ -1,5 +1,6 @@
 package com.udacity.project4
 
+import android.app.Activity
 import android.app.Application
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
@@ -114,11 +115,20 @@ class RemindersActivityTest :
         // Start up reminders list screen
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBindingIdlingResource.monitorActivity(activityScenario)
-
+        val activity = getActivity(activityScenario)
 
         // Click on the add reminder fab
         onView(withId(R.id.addReminderFAB)).perform(click())
 
+        // Check save button is displayed and click it
+        onView(withId(R.id.saveReminder)).check(matches(isDisplayed())).perform(click())
+
+        Thread.sleep(2000)
+        // Check snackbar is displayed
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withText(R.string.err_enter_title)))
+
+        Thread.sleep(2000)
         // Enter new reminder
         onView(withId(R.id.reminderTitle)).perform(replaceText("TITLE1"))
         onView(withText("TITLE1")).check(matches(isDisplayed()))
@@ -126,6 +136,15 @@ class RemindersActivityTest :
         onView(withId(R.id.reminderDescription)).perform(replaceText("DESCRIPTION1"))
         onView(withText("DESCRIPTION1")).check(matches(isDisplayed()))
 
+        // Check save button is displayed and click it
+        onView(withId(R.id.saveReminder)).check(matches(isDisplayed())).perform(click())
+
+        Thread.sleep(2000)
+        // Check snackbar is displayed
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withText(R.string.err_select_location)))
+
+        // Select location for reminder
         onView(withId(R.id.selectLocation)).perform(click())
 
         openActionBarOverflowOrOptionsMenu(appContext)
@@ -174,5 +193,14 @@ class RemindersActivityTest :
 
         // Make sure the activity is closed
         activityScenario.close()
+    }
+
+    // get activity context
+    private fun getActivity(activityScenario: ActivityScenario<RemindersActivity>): Activity? {
+        var activity: Activity? = null
+        activityScenario.onActivity {
+            activity = it
+        }
+        return activity
     }
 }
